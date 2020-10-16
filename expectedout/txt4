@@ -1,0 +1,20 @@
+Create directory: fruits
+Create file: fruits/apple
+Create file: fruits/orange
+Create file: fruits/banana
+Create file: fruits/grape
+Create directory: fruits
+Search: fruits/apple found
+Create file: animals
+Create file: animals/cat
+Search: animals/cat not found
+Delete: fruits/grape
+Delete: fruits/grape
+Search: fruits/grape not found
+Search: fruits found
+
+/fruits
+/fruits/apple
+/fruits/orange
+/fruits/banana
+/animals

@@ -1,0 +1,17 @@
+Create directory: a
+Create file: a/b
+Create directory: a/x/
+Create file: a/x/y
+Search: a found
+Search: a/b found
+Search: a/x found
+Search: a/x/y found
+Search: a/x/y/z not found
+Delete: a/x
+Search: a/x found
+Search: a/x/y found
+
+/a
+/a/b
+/a/x
+/a/x/y
