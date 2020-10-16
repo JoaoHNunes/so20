@@ -43,7 +43,7 @@ void errorParse(){
     exit(EXIT_FAILURE);
 }
 
-
+//funcao que verifica que tipo de lock vai ser bloqueado e bloqueia
 void lock(char c){
     switch (syncStrategy){
         case 'm':
@@ -83,6 +83,7 @@ void lock(char c){
     }
 }
 
+//funcao que verifica que tipo de lock vai ser desbloqueado e desbloqueia
 void unlock(){
     switch (syncStrategy){
         case 'm':
@@ -108,7 +109,7 @@ void unlock(){
     }
 }
 
-
+//funcao que destroi todos os locks inicializados
 void destroyLocks(){
     switch (syncStrategy){
         case 'm':
@@ -197,19 +198,32 @@ void processInput(char* fileName){
 }
 
 void applyCommands(){
-
-    while (numberCommands > 0){
+	while(1){
         const char* command;
 
         if (syncStrategy != 'n'){
             pthread_mutex_lock(&commandLock);
-            command = removeCommand();
-            pthread_mutex_unlock(&commandLock);
-        } else
-            command = removeCommand();
-
-        if (command == NULL)
-            continue;
+            if (numberCommands > 0){
+            	command = removeCommand();
+            	if (command == NULL){
+            		pthread_mutex_unlock(&commandLock);
+            		continue;
+            	} else
+            		pthread_mutex_unlock(&commandLock);
+            }
+            else{
+            	pthread_mutex_unlock(&commandLock);
+            	return;
+            }           
+        } else{
+        	if (numberCommands > 0)
+            	command = removeCommand();
+            else
+            	return;
+            if (command == NULL)
+            	continue;
+        }
+        
 
         char token, type;
         char name[MAX_INPUT_SIZE];
@@ -386,6 +400,3 @@ int main(int argc, char* argv[]){
     destroyLocks();
     exit(EXIT_SUCCESS);
 }
-
-
-//mudar os headers
